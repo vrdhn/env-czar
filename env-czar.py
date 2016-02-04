@@ -42,7 +42,11 @@ directives = [ x[0] for x  in envtxts if x[0][0] in set(['+','-'])]
 envvars    =  { x:[] for x in os.environ.get("_evars","").split(':') if x != ''}
 ## command line .. what user wants to change
 changes    = [x for x in sys.argv[1:] if x[0] in set(['+','-'])]
-
+## some env-vars may want to define seperators.. also map <space> is ' '
+def mapsep(x):
+    if x == '<space>': return ' '
+    return x
+seperators = { x[1]:mapsep(x[2]) for x  in envtxts if x[0] == ':seperator' }
 
 
 
@@ -79,7 +83,8 @@ for t in envtxts:
         envvars[t[1]].extend(t[2:])
         
 for v in envvars:
-    print('%s=%s;export %s;'%(v,':'.join([ "%s"%(x) for x in envvars[v]]),v))
+    sep = seperators.get(v,':')
+    print('%s="%s";export %s;'%(v,sep.join([ "%s"%(x) for x in envvars[v]]),v))
 
 
 print('_tools=%s; export _tools;echo SEL: $_tools;' % ( ':'.join(selected)))

@@ -25,6 +25,8 @@ Now you need to create lot of  env.txt files
 env.txt file are like this
 
     sys PATH /usr/bin/
+    :seperator MAVEN_OPTS <space>
+    +java
 
 First symbol, name is what you'll use at command line to
 turn on/off the fature. The other two are easy to guess.
