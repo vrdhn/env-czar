@@ -59,6 +59,7 @@ for c in changes:
     selected.append(c)
 
 ## Finally generate the values...
+tools=set()
 for t in envtxts:
     if t[0][0] in set(['+','-']):
         continue
@@ -73,6 +74,7 @@ for t in envtxts:
         else:
             ok = False
     if ok:
+        tools.add(t[0])
         if t[1] not in envvars: envvars[t[1]] = []
         envvars[t[1]].extend(t[2:])
         
@@ -80,6 +82,7 @@ for v in envvars:
     print('%s=%s;export %s;'%(v,':'.join([ "%s"%(x) for x in envvars[v]]),v))
 
 
-print('_tools=%s; export _tools;echo $_tools' % ( ':'.join(selected)))
-print('_evars=%s; export _evars;echo $_evars' % ( ':'.join(envvars)))    
+print('_tools=%s; export _tools;echo SEL: $_tools;' % ( ':'.join(selected)))
+print('echo TOOLS: %s;' % ( ':'.join(tools)))
+print('_evars=%s; export _evars;echo VARS: $_evars;' % ( ':'.join(envvars)))    
 
