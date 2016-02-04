@@ -1,6 +1,9 @@
 # env-czar
 
-env-czar takes over environment variables
+env-czar takes over environment variables.
+you create several env.txt files 
+and  use '+feature' / '-feature' to override env.txt settings
+
 
 # installation
 
@@ -20,35 +23,32 @@ Specifying full path to python3 will help survive bad PATH.
 Now you need to create lot of  env.txt files
 
 
-# env.txt files
+# env.txt files & operation
 
 env.txt file are like this
 
     sys PATH /usr/bin/
     :seperator MAVEN_OPTS <space>
     +java
+    -sys
 
 First symbol, name is what you'll use at command line to
 turn on/off the fature. The other two are easy to guess.
+generally there is no need of `-foo` pattern.
 
-They should be place at the 'root' folder of project,
-env.txt placed at user's home directory will also be ready.
+the `env.txt` can be placed at several places in the directory tree.
+When `e` is executed, the environment variables will be regenerated
+based on all the env.txt files in the hiererchical path, and the 
+env.txt in `HOME`.
 
-
-# opration
-
-env-czar will read all the env.txt file, starting from
-current directory and moving up till hitting home or /
-
-env-czar has a list of active tools, which are managed
-by the function 'e' in bashrc
+The arguments to `e` can be used to force turn feature(s) off or on.
 
     e +foo  <--- turns foo feature on
     e -foo <--- turns foo fature off
 
 
 
-#example
+# example
 
 ~/env.txt:
 
