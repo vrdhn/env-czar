@@ -10,12 +10,22 @@ import sys
 
 
 
+def make_absolute(lvl,x):
+    if len(x) < 2:
+        return x
+    ## a stupid assumptin that 1st two args are not ./<fo> (-:
+    return( [ (os.path.realpath(os.path.join(lvl,k))
+              if (k[0:2] == './') else k)
+             for k in x])
+
+
+
 def read_envtxt(dir):
     ret = []
     try:
         with  open(os.path.join(dir,'env.txt')) as et:
             ret = [ x.split() for x in et.readlines()]
-        return [ x for x in ret if x != [] ]
+        return [ make_absolute(dir,x) for x in ret if x != [] ]
     except:
         return ret        
 

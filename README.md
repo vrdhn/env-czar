@@ -36,6 +36,9 @@ First symbol, name is what you'll use at command line to
 turn on/off the fature. The other two are easy to guess.
 generally there is no need of `-foo` pattern.
 
+The value, if starts with './', indicates path relative to 
+current directory, and gets converted to absolute path
+
 the `env.txt` can be placed at several places in the directory tree.
 When `e` is executed, the environment variables will be regenerated
 based on all the env.txt files in the hiererchical path, and the 
